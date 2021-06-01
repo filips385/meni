@@ -28,7 +28,7 @@ mongoose.connect(uri,
 .catch(err=>console.log(err));
 
 app.get('/',(req,res)=>{
-  itemController.GetAll
+  res.send(uri)
 })
 
 
