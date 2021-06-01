@@ -7,6 +7,7 @@ const app=express().use(express.static(__dirname + '/'));
 var cors = require('cors')
 const itemController=require(__dirname+'/Controllers/ItemController')
 app.use(cors())
+const itemRouter=require(__dirname + '/Routes/Item_routes')
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -18,6 +19,8 @@ app.listen(PORT,()=>{
     console.log(`Server listening on port ${PORT}`);
 })
 
+itemRouter.routesConfig(app);
+
 app.use(express.urlencoded({ extended: true }))
 
 mongoose.connect(uri,
@@ -27,10 +30,6 @@ mongoose.connect(uri,
 .then(console.log("Connected to DB"))
 .catch(err=>console.log(err));
 
-app.get('/',(req,res)=>{
-  itemController.GetAll
-})
 
 
-const itemRouter=require(__dirname + '/Routes/Item_routes')
-itemRouter.routesConfig(app);
+
