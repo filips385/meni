@@ -26,9 +26,6 @@ mongoose.connect(uri,
 .then(console.log("Connected to DB"))
 .catch(err=>console.log(err));
 
-app.get('/',(req,res)=>{
-  res.send("Radi")
-})
 
-const itemRouter=require('./Routes/Item_routes')
+const itemRouter=require(__dirname + '/Routes/Item_routes')
 itemRouter.routesConfig(app);
