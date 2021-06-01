@@ -5,9 +5,9 @@ const mongoose=require('mongoose')
 const uri=process.env.DB
 const app=express().use(express.static(__dirname + '/'));
 var cors = require('cors')
-const itemController=require(__dirname+'/Controllers/ItemController')
 app.use(cors())
 const itemRouter=require(__dirname + '/Routes/Item_routes')
+const userRouter=require(__dirname + '/Routes/User_routes')
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -19,9 +19,10 @@ app.listen(PORT,()=>{
     console.log(`Server listening on port ${PORT}`);
 })
 
-itemRouter.routesConfig(app);
-
 app.use(express.urlencoded({ extended: true }))
+
+itemRouter.routesConfig(app);
+userRouter.routesConfig(app);
 
 mongoose.connect(uri,
     { useNewUrlParser: true, 
@@ -29,7 +30,4 @@ mongoose.connect(uri,
     )
 .then(console.log("Connected to DB"))
 .catch(err=>console.log(err));
-
-
-
 

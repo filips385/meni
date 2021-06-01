@@ -17,6 +17,18 @@ exports.getOne=Model=>(req,res,next)=>{
 }
 
 exports.createOne=Model=>(req,res,next)=>{
+
+    if(req.body.password){
+        let salt=crypto.randomBytes(16).toString('base64');
+        let hash=crypto.createHmac('sha512',salt).update(req.body.password).digest('base64');
+
+        let password=salt + '$' + hash;
+        req.body.permission=1;
+
+        req.body.password=password;
+    }
+
+
     Model.createOne(req.body).then(result=>{
         res.status(200).send({result})
         next()
