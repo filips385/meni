@@ -5,6 +5,7 @@ const mongoose=require('mongoose')
 const uri=process.env.DB
 const app=express().use(express.static(__dirname + '/'));
 var cors = require('cors')
+const itemController=require(__dirname+'/Controllers/ItemController')
 app.use(cors())
 
 
@@ -25,6 +26,10 @@ mongoose.connect(uri,
     )
 .then(console.log("Connected to DB"))
 .catch(err=>console.log(err));
+
+app.get('/',(req,res)=>{
+  itemController.GetAll
+})
 
 
 const itemRouter=require(__dirname + '/Routes/Item_routes')
