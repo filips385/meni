@@ -3,7 +3,7 @@ require('dotenv').config();
 bodyParser = require('body-parser');
 const mongoose=require('mongoose')
 const uri=process.env.DB
-const app=express();
+const app=express().use(express.static(__dirname + '/'));
 var cors = require('cors')
 app.use(cors())
 
@@ -26,6 +26,9 @@ mongoose.connect(uri,
 .then(console.log("Connected to DB"))
 .catch(err=>console.log(err));
 
+app.get('/',(req,res)=>{
+  res.send("Radi")
+})
 
 const itemRouter=require('./Routes/Item_routes')
 itemRouter.routesConfig(app);
